@@ -11,6 +11,8 @@
 var response;
 var output;
 let userAnswers = {};
+let userCorrect = 0;
+const scoreBtn = document.getElementById('score');
 
 document.querySelector('.start-game').addEventListener('click', startGame);
 
@@ -74,20 +76,28 @@ function startGame(e) {
 
          $('#done').on('click', function(e){
           $('#buttongroup').children.disabled = true;
-           // loop through object and compare userAnswers against correctAnswers
+           // WAIT - JUST COMPARE Key[0]= "Apollo" of one Object to Key[0] of UserAnswers = "Apollo" 
+           // increment userCorrect count and display that as score
+           // and compare userAnswers against correctAnswers
         // should be done when either time is up or user has hit stop button
-        const userCorrect = 0;
+        
         // need length of object, number of entries
         //const userAnsLen = userAnswers.(value).length;
-        let score = [];
+
        for(c = 0; c < 10; c++){
-         for(d = 0; d < 10; d++)
-          if(correctAnswers[c] == userAnswers[d]) {
+          if(correctAnswers[c] == userAnswers[c]) {
             userCorrect +=1;
-            break;
           }
        }
-       console.log(score);
+       scoreBtn.innerHTML = `You got ${userCorrect} right`;
+       scoreBtn.classList.add('btn-success');
+       console.log(userCorrect);
+       // Need to disable buttons in the button group
+
+       // Need to reset the game
+
+
+       // Need to tie in the timer
      });
   }
 
