@@ -44,19 +44,19 @@ function startGame(e) {
         let correctAnswers ={};
         for(i = 0; i< 10; i++){
           output += `
-          <div class="card card-body mb-2">
+          <div class="card card-body mb-2 bg-dark">
             <div class="row" id="${i}">
               <div class="col-md-6">
-                <h4 class = "h4">${i+1}.) ${response.results[i].question}</h4>
+                <h4 class = "h5 text-white">${i+1}.) ${response.results[i].question}</h4>
               </div>
               <div class="col-md-6" id="buttongroup">
-              <button class="btn btn-secondary">${response.results[i].correct_answer}</button>
-              <button class="btn btn-secondary">${response.results[i].incorrect_answers[0]}</button>
-              <button class="btn btn-secondary">${response.results[i].incorrect_answers[1]}</button>
-              <button class="btn btn-secondary">${response.results[i].incorrect_answers[2]}</button>           
+              <button class="btn btn-dark">${response.results[i].correct_answer}</button>
+              <button class="btn btn-dark">${response.results[i].incorrect_answers[0]}</button>
+              <button class="btn btn-dark">${response.results[i].incorrect_answers[1]}</button>
+              <button class="btn btn-dark">${response.results[i].incorrect_answers[2]}</button>           
               </div>
             </div>
-          </di
+          </div>
         `;
         correctAnswers[i] = response.results[i].correct_answer;
         }
