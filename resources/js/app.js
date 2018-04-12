@@ -8,59 +8,91 @@
 - Player can re-start
 */
 
-// document.querySelector('.get-jokes').addEventListener('click', getJokes);
 var response;
+var output;
+let userAnswers = {};
 
 document.querySelector('.start-game').addEventListener('click', startGame);
 
 function startGame(e) {
-  // const number = document.querySelector('input[type="number"]').value;
 
   const xhr = new XMLHttpRequest();
 
-  // xhr.open('GET', `http://api.icndb.com/jokes/random/${number}`, true);
   xhr.open('GET', `https://opentdb.com/api.php?amount=10&category=20&difficulty=easy&type=multiple`, true);
 
-  
-  // xhr.open('GET', `https://opentdb.com/api.php?amount=1&category=20&difficulty=easy&type=multiple`, true);
-
-  // API return for single question - start there for figuring out access
-  // https://opentdb.com/api.php?amount=1&category=20&difficulty=easy&type=multiple
   
   xhr.onload = function() {
     if(this.status === 200) {
        response = JSON.parse(this.responseText);
-      // for(i = 0; i < 10; i++)(
-      //   let question1 = response.results[i].question;
-      //   let answer1 = response.results[i].correct_answer;
-      //   let incor0 = response.results[i].incorrect_answers[0];
-      //   let incor1 = response.results[i].incorrect_answers[1];
-      //   let incor2 = response.results[i].incorrect_answers[2];
-        // output = 
-      
-      let output = '';
-      console.log(this.response);
-      console.log(response.results[0].question);
-      let question1 = response.results[0].question;
-      let answer1 = response.results[0].correct_answer;
-      let incor0 = response.results[0].incorrect_answers[0];
-      let incor1 = response.results[0].incorrect_answers[1];
-      let incor2 = response.results[0].incorrect_answers[2];
-      
-      output = question1 + "<br>" + answer1 + "<br>" + incor0 + "<br>" + incor1 + "<br>" + incor2 + "<br><br>";
-    //   if(response.type === 'success') {
-    //     response.value.forEach(function(responseText){
-    //       output += `<li>${this.responseText.question}</li>`;
-    //     });
-    //   } else {
-    //     output += '<li>Something went wrong</li>';
-    //   }
+       showQuestions(response);
+       // Start timer
 
-      document.querySelector('.questions').innerHTML = output;
-    }
+       // 
+      }
+
+    };
+
+    xhr.send();
+  
+    e.preventDefault(); 
+    } 
+   
+      function showQuestions(response) {
+        output = '';
+        let correctAnswers ={};
+        for(i = 0; i< 10; i++){
+          output += `
+          <div class="card card-body mb-2">
+            <div class="row" id="${i}">
+              <div class="col-md-6">
+                <h4 class = "h4">${i+1}.) ${response.results[i].question}</h4>
+              </div>
+              <div class="col-md-6" id="buttongroup">
+              <button class="btn btn-secondary">${response.results[i].correct_answer}</button>
+              <button class="btn btn-secondary">${response.results[i].incorrect_answers[0]}</button>
+              <button class="btn btn-secondary">${response.results[i].incorrect_answers[1]}</button>
+              <button class="btn btn-secondary">${response.results[i].incorrect_answers[2]}</button>           
+              </div>
+            </div>
+          </di
+        `;
+        correctAnswers[i] = response.results[i].correct_answer;
+        }
+         // Output repos
+         document.getElementById('questions').innerHTML = output;
+         console.log(correctAnswers);
+
+         // Collect correct answers
+         $('button').on('click', function(e) {
+           var currentQuestionID = $(this).closest('.row').prop('id');
+           var playerAnswer = this.innerHTML;
+           console.log('currect Question ID is ' + currentQuestionID);
+           console.log('playerAnswer is ' + playerAnswer);
+           userAnswers[currentQuestionID] = playerAnswer;
+          
+         })
+
+         $('#done').on('click', function(e){
+          $('#buttongroup').children.disabled = true;
+           // loop through object and compare userAnswers against correctAnswers
+        // should be done when either time is up or user has hit stop button
+        const userCorrect = 0;
+        // need length of object, number of entries
+        //const userAnsLen = userAnswers.(value).length;
+        let score = [];
+       for(c = 0; c < 10; c++){
+         for(d = 0; d < 10; d++)
+          if(correctAnswers[c] == userAnswers[d]) {
+            userCorrect +=1;
+            break;
+          }
+       }
+       console.log(score);
+     });
   }
 
-  xhr.send();
 
-  e.preventDefault();
-  };
+
+        
+     
+
