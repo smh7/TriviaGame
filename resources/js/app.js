@@ -13,11 +13,26 @@ var output;
 let userAnswers = {};
 let userCorrect = 0;
 const scoreBtn = document.getElementById('score');
+const playAgainBtn = document.getElementById('play-again');
+const endBtn = document.getElementById('done');
+
+// clearTimeout(myVar);
+// listener for play again
+document.querySelector('#play-again').addEventListener('click', refreshGame);
+// listen for end of game
+// if(gameTimeOver === true){
+  
+//   console.log("gametimeover = " + gameTimeOver);
+// }
 
 document.querySelector('.start-game').addEventListener('click', startGame);
 
 function startGame(e) {
-
+  myVar = setTimeout(function(){
+    // alert("jig is up"); 
+    stopwatch.stop();
+    $('#done').click();
+  }, 61000);
   const xhr = new XMLHttpRequest();
 
   xhr.open('GET', `https://opentdb.com/api.php?amount=10&category=20&difficulty=easy&type=multiple`, true);
@@ -41,10 +56,11 @@ function startGame(e) {
    
       function showQuestions(response) {
         output = '';
+
         let correctAnswers ={};
         for(i = 0; i< 10; i++){
           output += `
-          <div class="card card-body mb-2 bg-dark">
+          <div class="card card-body mb-2 ml-5 bg-dark">
             <div class="row" id="${i}">
               <div class="col-md-6">
                 <h4 class = "h5 text-white">${i+1}.) ${response.results[i].question}</h4>
@@ -59,23 +75,35 @@ function startGame(e) {
           </div>
         `;
         correctAnswers[i] = response.results[i].correct_answer;
+        stopwatch.start();
         }
          // Output repos
          document.getElementById('questions').innerHTML = output;
          console.log(correctAnswers);
-
+         stopwatch.start();
+        // End Game
+        
+        
          // Collect correct answers
          $('button').on('click', function(e) {
            var currentQuestionID = $(this).closest('.row').prop('id');
+           console.log("this.class is " + this.classList);
            var playerAnswer = this.innerHTML;
+           this.classList.add("btn-warning");
+           this.classList.remove("btn-dark");
            console.log('currect Question ID is ' + currentQuestionID);
            console.log('playerAnswer is ' + playerAnswer);
            userAnswers[currentQuestionID] = playerAnswer;
+           
           
          })
+        //  if(clockRunning === false){
 
-         $('#done').on('click', function(e){
+        //  }
+
+         $('#done').on('click', function endGame(e){
           $('#buttongroup').children.disabled = true;
+          stopwatch.stop();
            // WAIT - JUST COMPARE Key[0]= "Apollo" of one Object to Key[0] of UserAnswers = "Apollo" 
            // increment userCorrect count and display that as score
            // and compare userAnswers against correctAnswers
@@ -91,7 +119,15 @@ function startGame(e) {
        }
        scoreBtn.innerHTML = `You got ${userCorrect} right`;
        scoreBtn.classList.add('btn-success');
+       scoreBtn.classList.remove('btn-dark');
+       playAgainBtn.innerHTML = "Play Again?";
+       playAgainBtn.classList.add('btn-danger');
+       playAgainBtn.classList.remove('btn-dark');
+
        console.log(userCorrect);
+      //  for(i = 0; i < 10; i++){
+      //    console.log
+      //  }
        // Need to disable buttons in the button group
 
        // Need to reset the game
@@ -101,6 +137,13 @@ function startGame(e) {
      });
   }
 
+  function refreshGame() {
+    window.location.reload();
+  }
+ 
+  function endGameNow(){
+    console.log("the end")
+  }
 
 
         

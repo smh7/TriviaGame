@@ -1,6 +1,5 @@
 // STOPWATCH ACTIVITY (SOLUTION)
 // =============================
-
 // This code will run as soon as the page loads
 window.onload = function() {
   $("#lap").on("click", stopwatch.recordLap);
@@ -8,6 +7,8 @@ window.onload = function() {
   $("#reset").on("click", stopwatch.reset);
   $("#start").on("click", stopwatch.start);
 };
+
+
 
 //  Variable that will hold our setInterval that runs the stopwatch
 var intervalId;
@@ -18,16 +19,16 @@ var clockRunning = false;
 // Our stopwatch object
 var stopwatch = {
 
-  time: 0,
+  time: 60,
   lap: 1,
 
   reset: function() {
 
-    stopwatch.time = 0;
+    stopwatch.time = 60;
     stopwatch.lap = 1;
 
-    // DONE: Change the "display" div to "00:00."
-    $("#display").text("00:00");
+    // DONE: Change the "display" div to "00:60."
+    $("#display").text("00:60");
 
     // DONE: Empty the "laps" div.
     $("#laps").text("");
@@ -61,12 +62,14 @@ var stopwatch = {
   count: function() {
 
     // DONE: increment time by 1, remember we cant use "this" here.
-    stopwatch.time++;
+    stopwatch.time--;
 
     // DONE: Get the current time, pass that into the stopwatch.timeConverter function,
     //       and save the result in a variable.
     var converted = stopwatch.timeConverter(stopwatch.time);
     console.log(converted);
+
+    
 
     // DONE: Use the variable we just created to show the converted time in the "display" div.
     $("#display").text(converted);
@@ -90,6 +93,7 @@ var stopwatch = {
     return minutes + ":" + seconds;
   }
 };
+
 
 
 // Solution if you choose not to put it in an object

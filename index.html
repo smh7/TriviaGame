@@ -26,14 +26,14 @@
           <div class="col-sm-4 col-md-6" style="border:1px solid #333">
               <h4 class="row mb-0 text-white m-1" >Timer:</h4>
               <!-- <h1 class="row display-3 text-danger">60</h1> -->
-              <div class="row display-4 text-danger m-1" id="display">00:00</div>
+              <div class="row display-4 text-danger m-1" id="display">01:00</div>
                 <h4 class="row text-white m-1">Seconds.</h4>
               </div>
               <div class="col-sm-8 col-md-6" style="border:1px solid #333">
                 <h1 class="h-5 mb-100 text-white">You have sixty seconds to answer the next ten questions.</h1>
                 <br>
       
-                <button class="row btn btn-danger" type="button">Start.</button>
+                <!-- <button class="row btn btn-danger" id="start" type="button">Start.</button> -->
       
             </div>
           </div>
@@ -43,10 +43,10 @@
     
           <!-- Div containing our stopwatch controls -->
           <div id="buttons">
-            <button id="start">Start</button>
-            <button id="stop">Stop</button>
+            <!-- <button id="start">Start</button> -->
+            <!-- <button id="stop">Stop</button>
             <button id="reset">Reset</button>
-            <button id="lap">Lap</button>
+            <button id="lap">Lap</button> -->
           </div>
     
           <div id="laps"></div>
@@ -65,7 +65,9 @@
   <div id="questions"></div>
   <footer class="mt-5 p-3 ml-5 bg-transparent">
     <button class="btn btn-warning" id="done">Done, Get Score</button>
-    <button class="btn" id="score"></button>
+    <button class="btn btn-dark" id="score"></button>
+    <button class="btn btn-dark" id="play-again"></button>
+    
   </footer>
   
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
